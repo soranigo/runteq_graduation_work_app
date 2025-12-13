@@ -80,4 +80,4 @@ RUNTEQ生を通じて認知を広げていく
 
 [参考Figma](https://www.figma.com/design/tmmcHXL23qNPVkjfL9GfHw/%E5%8D%92%E6%A5%AD%E5%88%B6%E4%BD%9C?node-id=0-1&p=f&m=draw)
 
-[![参考ER図](https://i.gyazo.com/d988c55657e5f579dd52fd4f80839de7.png)](https://gyazo.com/d988c55657e5f579dd52fd4f80839de7)
+[![参考ER図](https://i.gyazo.com/bbb77bf521ba9fbc7d19d84914ad4db5.png)](https://gyazo.com/bbb77bf521ba9fbc7d19d84914ad4db5)
