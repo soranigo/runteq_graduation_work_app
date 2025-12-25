@@ -1,0 +1,38 @@
+services:
+  db:
+    image: mysql:5.7
+    platform: linux/amd64
+    environment:
+      TZ: Asia/Tokyo
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: myapp_development
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - 3307:3306
+
+  web:
+    build: .
+    user: "1000:1000"
+    command: bash -c "bundle install && rails server -b 0.0.0.0"
+    tty: true
+    stdin_open: true
+    volumes:
+      - .:/graduation_work_app
+      - bundle_data:/usr/local/bundle:cached
+    environment:
+      TZ: Asia/Tokyo
+      DATABASE_HOST: db
+      DATABASE_USERNAME: root
+      DATABASE_PASSWORD: password
+      BUNDLE_PATH: /usr/local/bundle  # 追加
+      BUNDLE_APP_CONFIG: /usr/local/bundle  # 追加
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    working_dir: /graduation_work_app
+
+volumes:
+  mysql_data:
+  bundle_data:
