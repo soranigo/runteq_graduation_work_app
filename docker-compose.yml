@@ -12,7 +12,9 @@ services:
       - 3307:3306
 
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     user: "1000:1000"
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
     tty: true
@@ -36,3 +38,4 @@ services:
 volumes:
   mysql_data:
   bundle_data:
+  
