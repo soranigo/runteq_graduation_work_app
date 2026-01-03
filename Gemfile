@@ -3,7 +3,7 @@ source "https://rubygems.org"
 ruby "3.2.7"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "7.1.0"
+gem "rails", "7.2.3"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 # Use mysql as the database for Active Record
@@ -49,6 +49,8 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   gem "pry-byebug"
+  gem "rspec-rails"
+  gem "factory_bot_rails"
 end
 
 group :development do
