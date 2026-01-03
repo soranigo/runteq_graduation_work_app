@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
+ruby "3.2.7"
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "7.1.0"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
@@ -41,7 +43,7 @@ group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
 
   # Static analysis for security vulnerabilities [https://brakemanscanner.org/]
-  gem "brakeman", require: false
+  gem "brakeman", ">= 7.1.2", require: false
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
