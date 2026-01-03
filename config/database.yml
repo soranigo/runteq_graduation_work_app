@@ -12,6 +12,8 @@
 default: &default
   adapter: mysql2
   encoding: utf8mb4
+  charset: utf8mb4
+  collation: utf8mb4_general_ci
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
   password: password
@@ -28,9 +30,6 @@ development:
 test:
   <<: *default
   database: graduation_work_app_test
-  username: root
-  password: password
-  host: 127.0.0.1
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -55,5 +54,6 @@ test:
 production:
   <<: *default
   database: graduation_work_app_production
-  username: graduation_work_app
-  password: <%= ENV["GRADUATION_WORK_APP_DATABASE_PASSWORD"] %>
+  username: <%= ENV['DATABASE_USERNAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: <%= ENV['DATABASE_HOST'] %>

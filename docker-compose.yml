@@ -1,5 +1,5 @@
 services:
-  db:
+  db: # MySQLサービス名。Dockerではdatabase.ymlのhostでこの名前を使用する。実は自由に名前を決められる。
     image: mysql:5.7
     platform: linux/amd64
     environment:
@@ -32,7 +32,7 @@ services:
     ports:
       - "3000:3000"
     depends_on:
-      - db
+      - db  # webサービスがdbサービスに依存していることを明示
     working_dir: /graduation_work_app
 
 volumes:
