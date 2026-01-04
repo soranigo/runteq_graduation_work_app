@@ -13,5 +13,4 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   get "login" => "static_pages#top"
-
 end
