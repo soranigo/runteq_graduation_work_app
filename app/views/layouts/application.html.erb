@@ -18,8 +18,11 @@
   </head>
 
   <body>
+    <%= render 'shared_pages/header' %>
     <main class="container mx-auto mt-28 px-5 flex">
       <%= yield %>
     </main>
+    <br>
+    <%= render 'shared_pages/footer' %>
   </body>
 </html>
