@@ -13,4 +13,6 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   root "static_pages#top"
+
+  resource :user, only: %i[new create]
 end
