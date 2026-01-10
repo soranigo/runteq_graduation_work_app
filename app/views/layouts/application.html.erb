@@ -19,6 +19,8 @@
 
   <body>
     <%= render 'shared_pages/header' %>
+    <%= render 'shared_pages/flash_messages' %>
+    <p id="notice"><%= flash[:notice] %></p>
     <main class="container mx-auto mt-28 px-5 flex">
       <%= yield %>
     </main>

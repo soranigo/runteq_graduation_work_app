@@ -38,6 +38,8 @@ gem "image_processing", "~> 1.2"
 
 gem "sass-rails", ">= 6"
 
+gem "sorcery"
+
 # gem "tailwindcss-rails", "~> 3.3.1"  MVPリリース後にインストールしなおし
 # gem "foreman", "~> 0.90.0"  MVPリリース後にインストールしなおし
 

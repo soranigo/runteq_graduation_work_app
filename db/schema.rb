@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_01_08_094002) do
+ActiveRecord::Schema[7.2].define(version: 2026_01_09_155656) do
   create_table "action_mailbox_inbound_emails", charset: "utf8mb4", force: :cascade do |t|
     t.integer "status", default: 0, null: false
     t.string "message_id", null: false
@@ -61,9 +61,11 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_08_094002) do
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
-    t.string "password", null: false
+    t.string "crypted_password"
+    t.string "salt"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
