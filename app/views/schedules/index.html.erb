@@ -1,1 +1,11 @@
-ログイン成功です！
+<h2>スケジュール管理画面</h2>
+<p>現在使用中のスケジュール</p>
+<i>スケジュール1(例:普通の日常)</i>
+<br>
+<% if @schedules %>
+  <% @schedules.each do |schedule| %>
+    <%= link_to schedule.name, schedule_path(schedule) %>
+    <br>
+  <% end %>
+<% end %>
+<%= link_to "+ スケジュール表新規作成", new_schedule_path %>

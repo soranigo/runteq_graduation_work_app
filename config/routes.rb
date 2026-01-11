@@ -19,5 +19,5 @@ Rails.application.routes.draw do
   post "login" => "user_sessions#create"
   get "logout" => "user_sessions#destroy", as: :logout
 
-  resources :schedules, only: %i[ index ]
+  resources :schedules, only: %i[ index new create show ]
 end
