@@ -1,0 +1,22 @@
+<%= link_to "管理画面に戻る", schedules_path %>
+
+<table>
+  <thead>
+    <th scope="col">時刻</th>
+    <% 7.times do |w| %>
+      <th scope="col"><%= "#{(@time + 86400 * w).strftime("%a")}" %></th>
+    <% end %>
+  </thead>
+  <tbody>
+    <% 48.times do |t| %>
+      <tr>
+        <th scope="row"><%= "#{(@time + 60 * 30 * t).strftime("%H:%M")} ~ #{(@time + 60 * 30 * (t + 1)).strftime("%H:%M")}" %></th>
+        <% 7.times do |w| %>
+          <td>
+            <%= link_to "+", "/" %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
