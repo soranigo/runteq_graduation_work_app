@@ -1,5 +1,7 @@
 <%= link_to "管理画面に戻る", schedules_path %>
 
+<h2><%=  %></h2>
+
 <table>
   <thead>
     <th scope="col">時刻</th>
@@ -10,10 +12,16 @@
   <tbody>
     <% 48.times do |t| %>
       <tr>
-        <th scope="row"><%= "#{(@time + 60 * 30 * t).strftime("%H:%M")} ~ #{(@time + 60 * 30 * (t + 1)).strftime("%H:%M")}" %></th>
+      <% time_separate_start = @time + 60 * 30 * t %>
+      <% time_separate_end = @time + 60 * 30 * (t + 1) %>
+        <th scope="row"><%= "#{time_separate_start.strftime("%H:%M")} ~ #{time_separate_end.strftime("%H:%M")}" %></th>
         <% 7.times do |w| %>
           <td>
-            <%= link_to "+", "/" %>
+            <% if @schedule.plans.find_by(starting_day_of_week: w.to_i, starting_time_before_type_conversion: time_separate_start) %>
+              <%= @schedule.plans.find_by(starting_day_of_week: w.to_i, starting_time_before_type_conversion: time_separate_start).name %>
+            <% else %>
+              <%= link_to "+", new_schedule_plans_path(@schedule, starting_day_of_week: w.to_i, starting_time_before_type_conversion: time_separate_start) %>
+            <% end %>
           </td>
         <% end %>
       </tr>
