@@ -7,5 +7,4 @@ class User < ApplicationRecord
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
 
   has_many :schedules, dependent: :destroy
-  has_many :plans, dependent: :destroy
 end
