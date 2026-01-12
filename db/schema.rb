@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_01_11_031657) do
+ActiveRecord::Schema[7.2].define(version: 2026_01_11_094209) do
   create_table "action_mailbox_inbound_emails", charset: "utf8mb4", force: :cascade do |t|
     t.integer "status", default: 0, null: false
     t.string "message_id", null: false
@@ -58,6 +58,22 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_11_031657) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "plans", charset: "utf8mb4", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "starting_day_of_week", null: false
+    t.time "starting_time_before_type_conversion", null: false
+    t.string "starting_time", null: false
+    t.integer "ending_day_of_week", null: false
+    t.time "ending_time_before_type_conversion", null: false
+    t.string "ending_time", null: false
+    t.bigint "user_id"
+    t.bigint "schedule_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["schedule_id"], name: "index_plans_on_schedule_id"
+    t.index ["user_id"], name: "index_plans_on_user_id"
+  end
+
   create_table "schedules", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.bigint "user_id"
@@ -78,5 +94,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_01_11_031657) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "plans", "schedules"
+  add_foreign_key "plans", "users"
   add_foreign_key "schedules", "users"
 end
