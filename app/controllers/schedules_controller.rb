@@ -1,5 +1,6 @@
 class SchedulesController < ApplicationController
   before_action :time_define, only: %i[ new create show ]
+
   def index
     @schedules = current_user.schedules.all
   end
@@ -18,12 +19,14 @@ class SchedulesController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    @schedule = Schedule.find(params[:id])
+  end
 
   private
 
   def time_define
-    @time = Time.new(2026, 1, 5, 0, 0, 0, "+09:00")
+    @time = Time.new(2026, 1, 4, 0, 0, 0, "+00:00")
   end
 
   def schedule_params
