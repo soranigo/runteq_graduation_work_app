@@ -1,5 +1,5 @@
 <div class="header" style="background-color:gray">
-  <p>ロゴ
+  <%= link_to "ロゴ", schedules_path %>
   <% if current_user %>
     <%= link_to "ログアウト", logout_path, data: { turbo_method: :delete } %>
   <% else %>
