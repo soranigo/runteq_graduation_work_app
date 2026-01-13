@@ -33,6 +33,14 @@ class PlansController < ApplicationController
     end
   end
 
+  def destroy
+    @plan = Plan.find_by(id: params[:id], schedule_id: params[:schedule_id])
+    return_pass = schedule_path(@plan.schedule)
+    plan_name = @plan.name
+    @plan.destroy
+    redirect_to return_pass, notice: "プラン「#{plan_name}」を削除しました"
+  end
+
   private
 
   def plan_params
