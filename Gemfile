@@ -4,6 +4,8 @@ ruby "3.2.7"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "7.2.3"
+# Use mysql as the database for Active Record
+gem "pg"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 # Use the Puma web server [https://github.com/puma/puma]
@@ -42,9 +44,8 @@ gem "sorcery"
 # gem "foreman", "~> 0.90.0"  MVPリリース後にインストールしなおし
 
 group :development, :test do
-  # Use mysql as the database for Active Record
   gem "mysql2", "~> 0.5"
-
+  
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
 
@@ -60,8 +61,6 @@ group :development, :test do
 end
 
 group :development do
-  gem "pg"
-
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 
