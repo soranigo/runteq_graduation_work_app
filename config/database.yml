@@ -15,20 +15,25 @@ default: &default
   charset: utf8mb4
   collation: utf8mb4_general_ci
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+# 開発環境とテスト環境用の共通設定
+mysql_default: &mysql_default
+  <<: *default
+  adapter: mysql2
   username: root
   password: password
   host: db
   port: 3306
 
 development:
-  <<: *default
+  <<: *mysql_default
   database: graduation_work_app_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  <<: *default
+  <<: *mysql_default
   database: graduation_work_app_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
@@ -52,10 +57,8 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
   adapter: postgresql  # ここだけPostgreSQL
   encoding: unicode
-  database: graduation_work_app_production
-  username: <%= ENV['DATABASE_USERNAME'] %>
-  password: <%= ENV['DATABASE_PASSWORD'] %>
-  host: <%= ENV['DATABASE_HOST'] %>
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  url: <%= ENV['DATABASE_URL'] %>
+  
