@@ -53,6 +53,8 @@ test:
 #
 production:
   <<: *default
+  adapter: postgresql  # ここだけPostgreSQL
+  encoding: unicode
   database: graduation_work_app_production
   username: <%= ENV['DATABASE_USERNAME'] %>
   password: <%= ENV['DATABASE_PASSWORD'] %>
