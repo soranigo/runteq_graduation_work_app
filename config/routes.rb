@@ -21,5 +21,10 @@ Rails.application.routes.draw do
 
   resources :schedules, only: %i[ index new create show ] do
     resources :plans, only: %i[ new create edit update destroy ]
+    collection do
+      post :notifications
+    end
   end
+
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 end

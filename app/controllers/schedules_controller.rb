@@ -23,6 +23,11 @@ class SchedulesController < ApplicationController
     @schedule = Schedule.find(params[:id])
   end
 
+  def notifications
+    @user = current_user
+    PlanNotificationMailer.with(user: @user).on_time.deliver_later
+  end
+
   private
 
   def time_define
