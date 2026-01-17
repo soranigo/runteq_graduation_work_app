@@ -1,0 +1,2 @@
+class AlertTiming < ApplicationRecord
+end
