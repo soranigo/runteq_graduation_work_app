@@ -85,19 +85,19 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
-  config.action_mailer.default_url_options = { 
-    host: ENV.fetch('APP_HOST', 'localhost:3000'),
-    protocol: 'https'
+  config.action_mailer.default_url_options = {
+    host: ENV.fetch("APP_HOST", "localhost:3000"),
+    protocol: "https"
   }
-  
+
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: 'smtp.sendgrid.net',
+    address: "smtp.sendgrid.net",
     port: 587,
-    domain: ENV['APP_HOST'],
-    user_name: 'apikey',
-    password: ENV['SENDGRID_API_KEY'],
-    authentication: 'plain',
+    domain: ENV["APP_HOST"],
+    user_name: "apikey",
+    password: ENV["SENDGRID_API_KEY"],
+    authentication: "plain",
     enable_starttls_auto: true
   }
 
