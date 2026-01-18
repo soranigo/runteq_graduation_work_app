@@ -1,5 +1,5 @@
 class PlanNotificationMailer < ApplicationMailer
-  default from: "kabyi9540@gmail.com"
+  default from: "notifications@example.com"
 
   def on_time
     @user = params[:user]
