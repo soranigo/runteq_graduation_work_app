@@ -16,6 +16,7 @@ RUN apt-get update -qq && \
 ENV RAILS_ENV="production" \
     BUNDLE_PATH="/usr/local/bundle" \
     BUNDLE_WITHOUT="development:test"
+    TZ="Asia/Tokyo"
 
 # Throw-away build stage to reduce size of final image
 FROM base AS build
@@ -30,13 +31,13 @@ COPY Gemfile Gemfile.lock ./
 RUN bundle install && \
     rm -rf ~/.bundle/ "${BUNDLE_PATH}"/ruby/*/cache "${BUNDLE_PATH}"/ruby/*/bundler/gems/*/.git
 
-# ⭐ ここで bootsnap precompile --gemfile を実行（Gemのプリコンパイル）
+# ここで bootsnap precompile --gemfile を実行（Gemのプリコンパイル）
 RUN bundle exec bootsnap precompile --gemfile
 
 # Copy application code
 COPY . .
 
-# ⭐ アプリケーションコードをコピーした後に bootsnap precompile を実行
+# アプリケーションコードをコピーした後に bootsnap precompile を実行
 RUN bundle exec bootsnap precompile app/ lib/
 
 # Precompiling assets for production without requiring secret RAILS_MASTER_KEY
@@ -53,6 +54,10 @@ COPY --from=build /rails /rails
 COPY entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
 
+# ⭐ start.shをコピーして実行権限を付与（追加）
+COPY start.sh /usr/bin/
+RUN chmod +x /usr/bin/start.sh
+
 # cacheディレクトリの作成と権限変更
 RUN mkdir -p /.cache && chmod -R 777 /.cache
 
@@ -68,4 +73,5 @@ ENTRYPOINT ["entrypoint.sh"]
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
+# ⭐ CMDをstart.shに変更（修正）
+CMD ["start.sh"]
