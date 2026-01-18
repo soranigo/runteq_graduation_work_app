@@ -1,0 +1,5 @@
+:concurrency: 5
+:queues:
+  - default
+  - mailers
+  - [critical, 2]  # 重要度の高いキュー

@@ -31,7 +31,7 @@ class SchedulesController < ApplicationController
   private
 
   def time_define
-    @time = Time.new(2026, 1, 4, 0, 0, 0, "+00:00")
+    @time = Time.new(2026, 1, 4, 0, 0, 0)
   end
 
   def schedule_params

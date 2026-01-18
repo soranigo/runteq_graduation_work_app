@@ -16,6 +16,9 @@ module GraduationWorkApp
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
 
+    config.time_zone = "Tokyo"  # これが設定されているか確認
+    config.active_record.default_timezone = :local  # これも追加
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
@@ -31,5 +34,7 @@ module GraduationWorkApp
       g.helper false
       g.test_framework nil
     end
+
+    config.active_job.queue_adapter = :sidekiq
   end
 end
