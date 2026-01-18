@@ -7,7 +7,6 @@ class PlansController < ApplicationController
 
   def create
     @plan = Plan.new(plan_params)
-    @method = :put
     @plan.starting_time = @plan.starting_time_before_type_conversion.strftime("%H:%M")
     @plan.ending_time = @plan.ending_time_before_type_conversion.strftime("%H:%M")
     if @plan.save
@@ -21,12 +20,18 @@ class PlansController < ApplicationController
 
   def edit
     @url = schedule_plan_path
+    @method = :put
     @plan = Plan.find_by(id: params[:id], schedule_id: params[:schedule_id])
   end
 
   def update
     @plan = Plan.find_by(id: params[:id], schedule_id: params[:schedule_id])
-    if @plan.update(plan_params)
+    @plan_substitute = Plan.new(plan_params)
+    plan_param = plan_params
+    plan_param[:starting_time] = @plan_substitute.starting_time_before_type_conversion.strftime("%H:%M")
+    plan_param[:ending_time] = @plan_substitute.ending_time_before_type_conversion.strftime("%H:%M")
+    if @plan.update(plan_param)
+      define_alert_timings(@plan)
       redirect_to schedule_path(@plan.schedule), notice: "#{@plan.name}を更新しました"
     else
       flash.now[:danger] = "プランを更新出来ませんでした"
