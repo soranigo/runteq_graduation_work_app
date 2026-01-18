@@ -12,7 +12,7 @@ class PlansController < ApplicationController
     @plan.ending_time = @plan.ending_time_before_type_conversion.strftime("%H:%M")
     if @plan.save
       define_alert_timings(@plan)
-      redirect_to schedule_path(@plan.schedule), notice: "#{@plan.name}、曜日#{@plan.starting_day_of_week.to_i}を作成しました"
+      redirect_to schedule_path(@plan.schedule), notice: "#{@plan.name}を作成しました"
     else
       flash.now[:danger] = "プランを作成出来ませんでした"
       render :new, status: :unprocessable_entity
