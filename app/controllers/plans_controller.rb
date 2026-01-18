@@ -1,7 +1,10 @@
 class PlansController < ApplicationController
+  before_action :set_schedule
+  before_action :set_plan, only: %i[ edit update destroy ]
+  before_action :set_url_with_get_method, only: %i[ new create ]
+  before_action :set_url_with_put_method, only: %i[ edit update ]
+
   def new
-    @url = schedule_plans_path
-    @method = :post
     @plan = Plan.new(starting_day_of_week: params[:starting_day_of_week].to_i, starting_time_before_type_conversion: params[:starting_time_before_type_conversion])
   end
 
@@ -35,7 +38,7 @@ class PlansController < ApplicationController
       redirect_to schedule_path(@plan.schedule), notice: "#{@plan.name}を更新しました"
     else
       flash.now[:danger] = "プランを更新出来ませんでした"
-      render :new, status: :unprocessable_entity
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -51,6 +54,24 @@ class PlansController < ApplicationController
 
   def plan_params
     params.require(:plan).permit(:name, :starting_day_of_week, :starting_time_before_type_conversion, :ending_day_of_week, :ending_time_before_type_conversion).merge(user_id: current_user.id, schedule_id: params[:schedule_id])
+  end
+
+  def set_schedule
+    @schedule = Schedule.find(params[:schedule_id])
+  end
+
+  def set_plan
+    @plan = @schedule.plans.find(params[:id])
+  end
+
+  def set_url_with_get_method
+    @url = schedule_plans_path(@schedule)
+    @method = :post
+  end
+
+  def set_url_with_put_method
+    @url = schedule_plans_path(@schedule)
+    @method = :put
   end
 
   def define_alert_timings(plan)
