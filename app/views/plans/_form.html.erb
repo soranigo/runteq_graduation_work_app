@@ -1,22 +1,22 @@
 <%= form_with model: plan, url: @url, method: @method do |f| %>
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label t('plans.name') %><br />
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :starting_day_of_week %><br />
+    <%= f.label t('plans.starting_day_of_week') %><br />
     <%= f.select :starting_day_of_week, Plan.starting_day_of_weeks.keys.to_a, include_blank: "曜日" %>
   </div>
   <div class="field">
-    <%= f.label :starting_time %><br />
+    <%= f.label t('plans.starting_time') %><br />
     <%= f.time_select :starting_time_before_type_conversion, {minute_step: 30} %>
   </div>
   <div class="field">
-    <%= f.label :ending_day_of_week %><br />
+    <%= f.label t('plans.ending_day_of_week') %><br />
     <%= f.select :ending_day_of_week, Plan.ending_day_of_weeks.keys.to_a, include_blank: "曜日" %>
   </div>
   <div class="field">
-    <%= f.label :ending_time %><br />
+    <%= f.label t('plans.ending_time') %><br />
     <%= f.time_select :ending_time_before_type_conversion, {minute_step: 30} %>
   </div>
   <div class="actions">

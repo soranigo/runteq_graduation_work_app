@@ -1,5 +1,6 @@
 class UserSessionsController < ApplicationController
   skip_before_action :require_login, only: %i[ new create ]
+  before_action :do_not_login_current_user_exist, only: %i[ new create ]
 
   def new; end
 
@@ -18,5 +19,13 @@ class UserSessionsController < ApplicationController
   def destroy
     logout
     redirect_to login_path, notice: "Logged out!", status: :see_other
+  end
+
+  private
+
+  def do_not_login_current_user_exist
+    if current_user
+      redirect_to schedules_path
+    end
   end
 end

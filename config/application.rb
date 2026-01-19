@@ -36,5 +36,7 @@ module GraduationWorkApp
     end
 
     config.active_job.queue_adapter = :sidekiq
+
+    config.i18n.default_locale = :ja
   end
 end
