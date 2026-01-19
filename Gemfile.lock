@@ -117,7 +117,7 @@ GEM
     debug_inspector (1.2.0)
     diff-lcs (1.6.2)
     drb (2.2.3)
-    enum_help (0.0.19)
+    enum_help (0.0.20)
       activesupport (>= 3.0.0)
     erb (6.0.1)
     erubi (1.13.1)
@@ -233,7 +233,7 @@ GEM
     pp (0.6.3)
       prettyprint
     prettyprint (0.2.0)
-    prism (1.7.0)
+    prism (1.8.0)
     pry (0.15.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -437,7 +437,7 @@ DEPENDENCIES
   brakeman (>= 7.1.2)
   capybara
   debug
-  enum_help (= 0.0.19)
+  enum_help (= 0.0.20)
   factory_bot_rails
   image_processing (~> 1.2)
   importmap-rails
