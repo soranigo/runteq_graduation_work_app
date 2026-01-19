@@ -1,7 +1,7 @@
 class SchedulesController < ApplicationController
   before_action :prohibit_interference_with_others, only: %i[ show ]
   before_action :time_define, only: %i[ new create show ]
-  
+
   def index
     @schedules = current_user.schedules.all
   end
