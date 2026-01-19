@@ -1,5 +1,6 @@
 class SchedulesController < ApplicationController
   before_action :time_define, only: %i[ new create show ]
+  before_action :prohibit_interference_with_others, only: %i[ show ]
 
   def index
     @schedules = current_user.schedules.all
@@ -36,5 +37,12 @@ class SchedulesController < ApplicationController
 
   def schedule_params
     params.require(:schedule).permit(:name).merge(user_id: current_user.id)
+  end
+
+  def prohibit_interference_with_others
+    @schedule = Schedule.find(params[:id])
+    if @schedule.user != current_user
+      redirect_to schedules_path, notice: "他のユーザーへの干渉は許しません。"
+    end
   end
 end

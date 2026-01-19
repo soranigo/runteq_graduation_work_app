@@ -3,6 +3,7 @@ class PlansController < ApplicationController
   before_action :set_plan, only: %i[ edit update destroy ]
   before_action :set_url_with_get_method, only: %i[ new create ]
   before_action :set_url_with_put_method, only: %i[ edit update ]
+  before_action :prohibit_interference_with_others, only: %i[ create edit update destroy ]
 
   def new
     @plan = Plan.new(starting_day_of_week: params[:starting_day_of_week].to_i, starting_time_before_type_conversion: params[:starting_time_before_type_conversion])
@@ -158,5 +159,12 @@ class PlansController < ApplicationController
       minutes = 30 * (count - 2)
     end
     minutes
+  end
+
+  def prohibit_interference_with_others
+    @schedule = Schedule.find(params[:schedule_id])
+    if @schedule.user != current_user
+      redirect_to schedules_path, notice: "他のユーザーへの干渉は許しません。"
+    end
   end
 end

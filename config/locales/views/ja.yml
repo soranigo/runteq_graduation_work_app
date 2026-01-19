@@ -18,6 +18,8 @@ ja:
     email: メールアドレス
     password: パスワード
     password_confirmation: パスワード(確認)
+  user_sessions:
+    login: ログイン
   schedules:
     name: スケジュール表の名前
   plans:
