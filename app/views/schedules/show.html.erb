@@ -5,9 +5,13 @@
 <table>
   <thead>
     <th scope="col">時刻</th>
-    <% 7.times do |w| %>
-      <th scope="col"><%= "#{(@time + 86400 * w).strftime("%a")}" %></th>
-    <% end %>
+    <th scope="col">日曜日</th>
+    <th scope="col">月曜日</th>
+    <th scope="col">火曜日</th>
+    <th scope="col">水曜日</th>
+    <th scope="col">木曜日</th>
+    <th scope="col">金曜日</th>
+    <th scope="col">土曜日</th>
   </thead>
   <tbody>
     <% 48.times do |t| %>
