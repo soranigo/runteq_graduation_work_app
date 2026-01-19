@@ -1,9 +1,9 @@
 <div class="header" style="background-color:gray">
-  <%= link_to "DaraCare", schedules_path %>
+  <%= link_to t('defaults.logo'), schedules_path %>
   <% if current_user %>
-    <%= link_to "ログアウト", logout_path %>
+    <%= link_to t('header.logout'), logout_path %>
   <% else %>
-    <%= link_to "新規登録", new_user_path %> |
-    <%= link_to "ログインはこちら", login_path %>
+    <%= link_to t('header.create_user'), new_user_path %> |
+    <%= link_to t('header.login'), login_path %>
   <% end %>
 </div>

@@ -1,0 +1,28 @@
+ja:
+  helpers:
+    submit:
+      create: 登録
+      submit: 保存
+      update: 更新
+    label:
+      email: メールアドレス
+      password: パスワード
+  defaults:
+    logo: DaraCare
+  header:
+    login: ログインはこちら
+    logout: ログアウト
+    create_user: 新規登録
+  users:
+    name: ユーザー名
+    email: メールアドレス
+    password: パスワード
+    password_confirmation: パスワード(確認)
+  schedules:
+    name: スケジュール表の名前
+  plans:
+    name: プラン名
+    starting_day_of_week: 開始曜日
+    starting_time: 開始時刻
+    ending_day_of_week: 終了曜日
+    ending_time: 終了時刻
