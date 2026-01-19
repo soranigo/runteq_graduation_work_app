@@ -8,9 +8,9 @@ class UserSessionsController < ApplicationController
     @user = login(params[:email], params[:password])
 
     if @user
-      redirect_to schedules_path, notice: "Login successful"
+      redirect_to schedules_path, notice: "ログインしました"
     else
-      flash.now[:alert] = "Login failed"
+      flash.now[:alert] = "ログインに失敗しました"
 
       render action: "new", status: :unprocessable_entity
     end
@@ -18,7 +18,7 @@ class UserSessionsController < ApplicationController
 
   def destroy
     logout
-    redirect_to login_path, notice: "Logged out!", status: :see_other
+    redirect_to login_path, notice: "ログアウトしました", status: :see_other
   end
 
   private
