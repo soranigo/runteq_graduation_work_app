@@ -3,7 +3,7 @@ source "https://rubygems.org"
 ruby "3.2.7"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "7.2.3"
+gem "rails", "8.1.2"
 # Use mysql as the database for Active Record
 gem "pg"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
@@ -42,7 +42,7 @@ gem "sorcery"
 
 gem "sidekiq"
 
-gem "rails-i18n", "~> 7.0.0"
+gem "rails-i18n", "~> 8.1.0"
 gem "enum_help", "0.0.19"
 
 # gem "tailwindcss-rails", "~> 3.3.1"  MVPリリース後にインストールしなおし
