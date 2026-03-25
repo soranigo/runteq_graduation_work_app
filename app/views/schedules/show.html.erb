@@ -21,12 +21,7 @@
         <th scope="row"><%= "#{time_separate_start.strftime("%H:%M")} ~ #{time_separate_end.strftime("%H:%M")}" %></th>
         <% 7.times do |w| %>
           <td>
-            <% schedule_plan = @schedule.plans.find_by(starting_day_of_week: w.to_i, starting_time_before_type_conversion: time_separate_start) %>
-            <% if schedule_plan %>
-              <%= link_to schedule_plan.name, "/schedules/#{@schedule.id}/plans/#{schedule_plan.id}/edit" %>
-            <% else %>
-              <%= link_to "+", new_schedule_plan_path(@schedule, starting_day_of_week: w.to_i, starting_time_before_type_conversion: time_separate_start) %>
-            <% end %>
+            <%= render partial: 'plan', locals: { schedule: @schedule, w: w, time_separate_start: time_separate_start, plans_hash: @plans_hash } %>
           </td>
         <% end %>
       </tr>

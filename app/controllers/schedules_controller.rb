@@ -22,6 +22,8 @@ class SchedulesController < ApplicationController
 
   def show
     @schedule = Schedule.find(params[:id])
+    @plans = @schedule.plans.all
+    @plans_hash = @plans.index_by { |plan| [plan.starting_day_of_week_before_type_cast, plan.starting_time_before_type_conversion.strftime("%H:%M")] }
   end
 
   def notifications
