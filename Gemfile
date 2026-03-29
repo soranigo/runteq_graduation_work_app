@@ -43,7 +43,7 @@ gem "sorcery"
 gem "sidekiq"
 
 gem "rails-i18n", "~> 7.0.0"
-gem "enum_help", "0.0.19"
+gem "enum_help", "0.0.20"
 
 # gem "tailwindcss-rails", "~> 3.3.1"  MVPリリース後にインストールしなおし
 # gem "foreman", "~> 0.90.0"  MVPリリース後にインストールしなおし
