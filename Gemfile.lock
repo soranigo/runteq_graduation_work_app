@@ -90,7 +90,7 @@ GEM
       debug_inspector (>= 1.2.0)
     bootsnap (1.20.1)
       msgpack (~> 1.2)
-    brakeman (7.1.2)
+    brakeman (8.0.4)
       racc
     builder (3.3.0)
     byebug (12.0.0)
@@ -434,7 +434,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootsnap
-  brakeman (>= 7.1.2)
+  brakeman (~> 8.0)
   capybara
   debug
   enum_help (= 0.0.19)
@@ -464,7 +464,7 @@ DEPENDENCIES
   web-console
 
 RUBY VERSION
-   ruby 3.2.7p253
+   ruby 3.3.11p205
 
 BUNDLED WITH
    2.4.19
