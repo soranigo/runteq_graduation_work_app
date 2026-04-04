@@ -2,19 +2,19 @@ ja:
   enums:
     plan:
       starting_day_of_week:
-        sun: 日曜日
-        mon: 月曜日
-        tue: 火曜日
-        wed: 水曜日
-        thu: 木曜日
-        fri: 金曜日
-        sat: 土曜日
+        Sun: 日曜日
+        Mon: 月曜日
+        Tue: 火曜日
+        Wed: 水曜日
+        Thu: 木曜日
+        Fri: 金曜日
+        Sat: 土曜日
       ending_day_of_week:
-        sun: 日曜日
-        mon: 月曜日
-        tue: 火曜日
-        wed: 水曜日
-        thu: 木曜日
-        fri: 金曜日
-        sat: 土曜日
+        Sun: 日曜日
+        Mon: 月曜日
+        Tue: 火曜日
+        Wed: 水曜日
+        Thu: 木曜日
+        Fri: 金曜日
+        Sat: 土曜日
         

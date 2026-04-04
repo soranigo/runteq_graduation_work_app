@@ -29,10 +29,13 @@ class SchedulesController < ApplicationController
                                             ] }
     @plan_ids_hash = {}
     @plans_hash.each do |plan_hash|
-      (((plan_hash[1].ending_time_before_type_conversion - plan_hash[1].starting_time_before_type_conversion) / 1800).round - 1).times do |t|
-        @plan_ids_hash[ [ plan_hash[1].starting_day_of_week_before_type_cast, (plan_hash[1].starting_time_before_type_conversion + (t + 1) * 30 * 60).strftime("%H:%M") ] ] = plan_hash[1]
+      # (((plan_hash[1].ending_time_before_type_conversion - plan_hash[1].starting_time_before_type_conversion) / 1800).round).times do |t|
+      time_slot_number = time_slot_number_calculation(plan_hash[1])
+      time_slot_number.round.times do |t|
+        add_to_plan_ids_hash(plan_hash, @plan_ids_hash, t)
       end
     end
+    binding.pry
   end
 
   def notifications
@@ -58,8 +61,23 @@ class SchedulesController < ApplicationController
   end
 
   def time_slot_number_calculation(plan)
-    ending_time = plan.ending_day_of_week * 24 * 60 * 60 + plan.ending_time_before_type_conversion
-    starting_time = plan.starting_day_of_week * 24 * 60 * 60 + plan.starting_time_before_type_conversion
-    return ending_time - starting_time
+    end_con = convert_time_to_seconds(plan.ending_day_of_week_before_type_cast ,plan.ending_time_before_type_conversion)
+    start_con = convert_time_to_seconds(plan.starting_day_of_week_before_type_cast, plan.starting_time_before_type_conversion)
+    ending_time = end_con + plan.ending_day_of_week_before_type_cast * 24 * 60 * 60
+    starting_time = start_con + plan.starting_day_of_week_before_type_cast * 24 * 60 * 60
+    (ending_time - starting_time) / (30 * 60)
+  end
+
+  def add_to_plan_ids_hash(plan_hash, plan_ids_hash, t)
+    add_time_half_hour_each = plan_hash[1].starting_time_before_type_conversion + t * 30 * 60
+    plan_ids_hash[ [ convert_time_to_seconds(add_time_half_hour_each.starting_day_of_week_before_type_cast, add_time_half_hour_each) / (24 * 60 * 60), add_time_half_hour_each.strftime("%H:%M") ] ] = plan_hash[1].id
+    # add_time_half_hour_eachの曜日を数字に変換して使いたいが、
+    # add_time_half_hour_eachはデータベースに保存しない変数のため
+    # starting_day_of_week_before_type_castで値を取得できない上にenumも使えない
+    # enumで定義したものを他の変数にも使いたいが……
+  end
+
+  def convert_time_to_seconds(day_of_week, time)
+    ((day_of_week * 24 + time.strftime("%k").to_i) * 60 + time.strftime("%M").to_i) * 60
   end
 end
