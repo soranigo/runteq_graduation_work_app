@@ -2,6 +2,8 @@ class SchedulesController < ApplicationController
   before_action :prohibit_interference_with_others, only: %i[ show ]
   before_action :time_define, only: %i[ new create show ]
 
+  include DayOfWeek
+
   def index
     @schedules = current_user.schedules.all
   end
@@ -65,12 +67,13 @@ class SchedulesController < ApplicationController
     start_con = convert_time_to_seconds(plan.starting_day_of_week_before_type_cast, plan.starting_time_before_type_conversion)
     ending_time = end_con + plan.ending_day_of_week_before_type_cast * 24 * 60 * 60
     starting_time = start_con + plan.starting_day_of_week_before_type_cast * 24 * 60 * 60
+    binding.pry
     (ending_time - starting_time) / (30 * 60)
   end
 
   def add_to_plan_ids_hash(plan_hash, plan_ids_hash, t)
     add_time_half_hour_each = plan_hash[1].starting_time_before_type_conversion + t * 30 * 60
-    plan_ids_hash[ [ convert_time_to_seconds(add_time_half_hour_each.starting_day_of_week_before_type_cast, add_time_half_hour_each) / (24 * 60 * 60), add_time_half_hour_each.strftime("%H:%M") ] ] = plan_hash[1].id
+    plan_ids_hash[ [ convert_time_to_seconds(DAYS_OF_WEEK[add_time_half_hour_each.strftime("%a")], add_time_half_hour_each) / (24 * 60 * 60), add_time_half_hour_each.strftime("%H:%M") ] ] = plan_hash[1].id
     # add_time_half_hour_eachの曜日を数字に変換して使いたいが、
     # add_time_half_hour_eachはデータベースに保存しない変数のため
     # starting_day_of_week_before_type_castで値を取得できない上にenumも使えない
@@ -78,6 +81,6 @@ class SchedulesController < ApplicationController
   end
 
   def convert_time_to_seconds(day_of_week, time)
-    ((day_of_week * 24 + time.strftime("%k").to_i) * 60 + time.strftime("%M").to_i) * 60
+    ((time.strftime("%k").to_i + day_of_week.to_i * 24) * 60 + time.strftime("%M").to_i) * 60
   end
 end
