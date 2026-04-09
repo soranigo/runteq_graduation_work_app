@@ -1,6 +1,8 @@
 <% schedule_plan = plans_hash[[w.to_i, time_separate_start.strftime("%H:%M")]] %>
 <% if schedule_plan %>
   <%= link_to schedule_plan.name, "/schedules/#{schedule.id}/plans/#{schedule_plan.id}/edit" %>
+<% elsif plan_ids_hash[ [w.to_i, time_separate_start.strftime("%H:%M")] ] %>
+  <%= link_to "↓ ↓ ↓", "/schedules/#{schedule.id}/plans/#{plan_ids_hash[ [w.to_i, time_separate_start.strftime("%H:%M")] ].id}/edit" %>
 <% else %>
   <%= link_to "+", new_schedule_plan_path(schedule, starting_day_of_week: w.to_i, starting_time_before_type_conversion: time_separate_start) %>
 <% end %>

@@ -21,7 +21,13 @@
         <th scope="row"><%= "#{time_separate_start.strftime("%H:%M")} ~ #{time_separate_end.strftime("%H:%M")}" %></th>
         <% 7.times do |w| %>
           <td>
-            <%= render partial: 'plan', locals: { schedule: @schedule, w: w, time_separate_start: time_separate_start, plans_hash: @plans_hash } %>
+            <%= render partial: 'plan', locals: {
+                                                  schedule: @schedule,
+                                                  w: w,
+                                                  time_separate_start: time_separate_start,
+                                                  plans_hash: @plans_hash,
+                                                  plan_ids_hash: @plan_ids_hash
+                                                } %>
           </td>
         <% end %>
       </tr>
