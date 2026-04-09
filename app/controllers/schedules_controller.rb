@@ -27,7 +27,7 @@ class SchedulesController < ApplicationController
     @plans = @schedule.plans.all
     @plans_hash = @plans.index_by { |plan| [
                                               plan.starting_day_of_week_before_type_cast,
-                                              plan.starting_time,
+                                              plan.starting_time
                                             ] }
     @plan_ids_hash = {}
     @plans_hash.each do |plan_hash|
@@ -63,7 +63,7 @@ class SchedulesController < ApplicationController
   end
 
   def time_slot_number_calculation(plan)
-    end_con = convert_time_to_seconds(plan.ending_day_of_week_before_type_cast ,plan.ending_time_before_type_conversion)
+    end_con = convert_time_to_seconds(plan.ending_day_of_week_before_type_cast, plan.ending_time_before_type_conversion)
     start_con = convert_time_to_seconds(plan.starting_day_of_week_before_type_cast, plan.starting_time_before_type_conversion)
     ending_time = end_con + plan.ending_day_of_week_before_type_cast * 24 * 60 * 60
     starting_time = start_con + plan.starting_day_of_week_before_type_cast * 24 * 60 * 60
@@ -73,7 +73,7 @@ class SchedulesController < ApplicationController
 
   def add_to_plan_ids_hash(plan_hash, plan_ids_hash, t)
     add_time_half_hour_each = plan_hash[1].starting_time_before_type_conversion + t * 30 * 60
-    plan_ids_hash[ [ convert_time_to_seconds(DAYS_OF_WEEK[add_time_half_hour_each.strftime("%a")], add_time_half_hour_each) / (24 * 60 * 60), add_time_half_hour_each.strftime("%H:%M") ] ] = plan_hash[1].id
+    plan_ids_hash[[ convert_time_to_seconds(DAYS_OF_WEEK[add_time_half_hour_each.strftime("%a")], add_time_half_hour_each) / (24 * 60 * 60), add_time_half_hour_each.strftime("%H:%M") ]] = plan_hash[1].id
     # add_time_half_hour_eachの曜日を数字に変換して使いたいが、
     # add_time_half_hour_eachはデータベースに保存しない変数のため
     # starting_day_of_week_before_type_castで値を取得できない上にenumも使えない
