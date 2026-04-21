@@ -14,7 +14,7 @@ class Plan < ApplicationRecord
   belongs_to :schedule
 
   def self.current_day_of_week_value
-    current_day = Time.zone.now.strftime("%a").downcase.to_sym
+    current_day = Time.zone.now.strftime("%a")
     DAYS_OF_WEEK[current_day]
   end
 

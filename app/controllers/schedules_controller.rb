@@ -37,7 +37,6 @@ class SchedulesController < ApplicationController
         add_to_plan_ids_hash(plan_hash, @plan_ids_hash, t)
       end
     end
-    binding.pry
   end
 
   def notifications
@@ -46,10 +45,6 @@ class SchedulesController < ApplicationController
   end
 
   private
-
-  def time_define
-    @time = Time.new(2026, 1, 4, 0, 0, 0)
-  end
 
   def schedule_params
     params.require(:schedule).permit(:name).merge(user_id: current_user.id)
@@ -63,24 +58,33 @@ class SchedulesController < ApplicationController
   end
 
   def time_slot_number_calculation(plan)
-    end_con = convert_time_to_seconds(plan.ending_day_of_week_before_type_cast, plan.ending_time_before_type_conversion)
-    start_con = convert_time_to_seconds(plan.starting_day_of_week_before_type_cast, plan.starting_time_before_type_conversion)
-    ending_time = end_con + plan.ending_day_of_week_before_type_cast * 24 * 60 * 60
-    starting_time = start_con + plan.starting_day_of_week_before_type_cast * 24 * 60 * 60
-    binding.pry
+    ending_time = convert_time_to_seconds(get_date(plan.ending_day_of_week, plan.ending_time_before_type_conversion))
+    starting_time = convert_time_to_seconds(get_date(plan.starting_day_of_week, plan.starting_time_before_type_conversion))
+    ending_time = ending_time + 7 * 24 * 60 * 60 if ending_time < starting_time
     (ending_time - starting_time) / (30 * 60)
   end
 
   def add_to_plan_ids_hash(plan_hash, plan_ids_hash, t)
-    add_time_half_hour_each = plan_hash[1].starting_time_before_type_conversion + t * 30 * 60
-    plan_ids_hash[[ convert_time_to_seconds(DAYS_OF_WEEK[add_time_half_hour_each.strftime("%a")], add_time_half_hour_each) / (24 * 60 * 60), add_time_half_hour_each.strftime("%H:%M") ]] = plan_hash[1].id
+    # 下記のstarting_time_before_type_conversionを書き換える。get_dataを使用してこの予定の曜日を取得できるようにすること。
+    time = get_date(plan_hash[1].starting_day_of_week, plan_hash[1].starting_time_before_type_conversion)
+    add_time_half_hour_each = time + t * 30 * 60
+    plan_ids_hash[[ (convert_time_to_seconds(add_time_half_hour_each) / (24 * 60 * 60)).round, add_time_half_hour_each.strftime("%H:%M") ]] = plan_hash[1]
     # add_time_half_hour_eachの曜日を数字に変換して使いたいが、
     # add_time_half_hour_eachはデータベースに保存しない変数のため
     # starting_day_of_week_before_type_castで値を取得できない上にenumも使えない
     # enumで定義したものを他の変数にも使いたいが……
   end
 
-  def convert_time_to_seconds(day_of_week, time)
-    ((time.strftime("%k").to_i + day_of_week.to_i * 24) * 60 + time.strftime("%M").to_i) * 60
+  def convert_time_to_seconds(time)
+    ((time.strftime("%k").to_i + DAYS_OF_WEEK[time.strftime("%a")] * 24) * 60 + time.strftime("%M").to_i) * 60
+  end
+
+  def get_date(day_of_week, time)
+    Time.zone.local(@time.strftime("%Y").to_i,
+                    @time.strftime("%m").to_i,
+                    DAYS_OF_WEEK[day_of_week],
+                    time.strftime("%H").to_i,
+                    time.strftime("%M").to_i,
+                    0)
   end
 end
