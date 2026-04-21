@@ -59,10 +59,8 @@ class SchedulesController < ApplicationController
   end
 
   def time_slot_number_calculation(plan)
-    end_con = convert_time_to_seconds(get_date(plan.ending_day_of_week, plan.ending_time_before_type_conversion))
-    start_con = convert_time_to_seconds(get_date(plan.starting_day_of_week, plan.starting_time_before_type_conversion))
-    ending_time = end_con + (plan.ending_day_of_week_before_type_cast - 1) * 24 * 60 * 60
-    starting_time = start_con + (plan.starting_day_of_week_before_type_cast - 1) * 24 * 60 * 60
+    ending_time = convert_time_to_seconds(get_date(plan.ending_day_of_week, plan.ending_time_before_type_conversion))
+    starting_time = convert_time_to_seconds(get_date(plan.starting_day_of_week, plan.starting_time_before_type_conversion))
     (ending_time - starting_time) / (30 * 60)
   end
 
