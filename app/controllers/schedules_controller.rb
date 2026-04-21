@@ -37,7 +37,6 @@ class SchedulesController < ApplicationController
         add_to_plan_ids_hash(plan_hash, @plan_ids_hash, t)
       end
     end
-    binding.pry
   end
 
   def notifications
@@ -61,6 +60,7 @@ class SchedulesController < ApplicationController
   def time_slot_number_calculation(plan)
     ending_time = convert_time_to_seconds(get_date(plan.ending_day_of_week, plan.ending_time_before_type_conversion))
     starting_time = convert_time_to_seconds(get_date(plan.starting_day_of_week, plan.starting_time_before_type_conversion))
+    ending_time = ending_time + 7 * 24 * 60 * 60 if ending_time < starting_time
     (ending_time - starting_time) / (30 * 60)
   end
 
