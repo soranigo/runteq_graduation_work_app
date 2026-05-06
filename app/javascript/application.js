@@ -3,3 +3,9 @@
 import "@hotwired/turbo-rails" // この行を追加。
 import "trix"
 import "@rails/actiontext"
+import "./channels"
+import { requestNotificationPermission } from "./notifications"
+
+document.addEventListener('DOMContentLoaded', () => {
+  requestNotificationPermission();
+});
