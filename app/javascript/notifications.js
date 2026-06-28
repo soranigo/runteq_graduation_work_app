@@ -24,13 +24,26 @@ export function requestNotificationPermission() {
 }
 
 // 通知を表示する関数
-export function showNotification(title, body, tag) {
-  if (Notification.permission === "granted") {
-    notification = new Notification(title, {
-      body: body,
-      tag: String(tag) + "&" + String(Math.random(100000))
-    });
+export function showNotification(title, body, options = {}) {
+  if (!("Notification" in window)) {
+    console.log("通知機能がサポートされていません");
+    return;
   }
+
+  if (Notification.permission !== "granted") {
+    console.log("通知が許可されていません");
+    return;
+  }
+
+  // 通知のオプションを設定
+  const notificationOptions = {
+    body: body,
+    icon: options.icon || '/icon.png',
+    tag: options.tag || String(Date.now()),
+  };
+
+  // 通知を表示
+  notification = new Notification(title, notificationOptions);
 
   // 通知がクリックされたときの処理
   notification.onclick = function(event) {
@@ -47,7 +60,7 @@ export function showNotification(title, body, tag) {
     closeNotification();
   }, 5000); // 5秒後に通知を閉じる
 
-  return notification;
+  notification;
 }
 
 // 通知を閉じる関数

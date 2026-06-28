@@ -38,5 +38,11 @@ module GraduationWorkApp
     config.active_job.queue_adapter = :sidekiq
 
     config.i18n.default_locale = :ja
+
+    # Action Cable がセッションにアクセスできるようにする
+    config.action_cable.mount_path = '/cable'
+    config.action_cable.disable_request_forgery_protection = false
+
+    config.cache_store = :redis_store, "redis://localhost:6379/0/cache", { expires_in: 90.minutes }
   end
 end

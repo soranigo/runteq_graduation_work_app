@@ -1,11 +1,14 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
 
-import "@hotwired/turbo-rails" // この行を追加。
+import "@hotwired/turbo-rails"
 import "trix"
 import "@rails/actiontext"
-import "./channels"
-import { requestNotificationPermission } from "./notifications"
+import "channels/consumer"
+import "channels/notifications_channel"
+import { requestNotificationPermission, showNotification } from "./notifications"
 
+/*
 document.addEventListener('DOMContentLoaded', () => {
   requestNotificationPermission();
 });
+*/

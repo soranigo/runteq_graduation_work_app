@@ -1,25 +1,28 @@
-import consumer from "./consumer"
+import consumer from "channels/consumer"
 import { showNotification, requestNotificationPermission } from "../notifications"
+
+console.log("📂 notifications_channel.js が読み込まれました");
 
 consumer.subscriptions.create("NotificationsChannel", {
   connected() {
-    console.log("通知チャンネルに接続しました");
+    console.log("✅ 通知チャンネルに接続しました");
     
     // 接続時に通知許可をリクエスト（初回のみ）
     requestNotificationPermission();
   },
 
   disconnected() {
-    console.log("通知チャンネルから切断しました");
+    console.log("❌ 通知チャンネルから切断しました");
   },
 
   received(data) {
-    console.log("通知データを受信:", data);
+    console.log("📩 通知データを受信:", data);
     
     // サーバーからの通知指示を受け取った
-    if (data.type === 'web_notification') {
+    //if (data.type === 'web_notification') {
+      console.log("🔔 Web通知を表示します");
       this.handleWebNotification(data);
-    }
+    //}
   },
 
   handleWebNotification(data) {

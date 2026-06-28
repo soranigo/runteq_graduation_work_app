@@ -94,7 +94,7 @@ class PlansController < ApplicationController
     days_later = how_many_days_later(plan, starting_time_convert_minutes, today_day_of_week, current_time_convert_minutes)
     time_later = how_many_time_later(plan, starting_time_convert_minutes, today_day_of_week, current_time_convert_minutes)
     counts = loop_count(plan, starting_time_convert_minutes, ending_time_convert_minutes)
-    alerts_later(counts, days_later, time_later, current_user)
+    alerts_later(counts, days_later, time_later, plan.schedule)
   end
 
   def convert_time_to_minutes(time)
@@ -113,10 +113,11 @@ class PlansController < ApplicationController
     end
   end
 
-  def alerts_later(counts, days_later, time_later, user)
+  def alerts_later(counts, days_later, time_later, schedule)
+    Rails.logger.info "送信先： #{current_user}"
     counts.times do |count|
       minutes = difine_minutes(count) + time_later
-      PeriodicNotificationJob.set(wait: days_later.days + minutes.minute).perform_later(user)
+      PeriodicNotificationJob.set(wait: days_later.days + minutes.minute).perform_later(current_user, schedule)
     end
   end
 
