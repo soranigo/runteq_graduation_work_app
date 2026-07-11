@@ -15,9 +15,21 @@
     <link rel="apple-touch-icon" href="/icon.png">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <%= javascript_import_module_tag "application" %>
   </head>
 
   <body>
+    <script type="module">
+      import { requestNotificationPermission, showNotification } from '<%= asset_path "notifications.js" %>';
+  
+      // ページ読み込み時に許可をリクエスト
+      document.addEventListener('DOMContentLoaded', () => {
+        requestNotificationPermission();
+      });
+  
+      // 通知を表示する例（グローバルに使えるようにする）
+      window.showNotification = showNotification;
+    </script>
     <%= render 'shared_pages/header' %>
     <%= render 'shared_pages/flash_messages' %>
     <main class="container mx-auto mt-28 px-5 flex">

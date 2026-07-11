@@ -8,6 +8,8 @@ class UserSessionsController < ApplicationController
     @user = login(params[:email], params[:password])
 
     if @user
+      # 下記追加。ActionCable 用に Cookie にユーザーIDを保存
+      cookies.encrypted[:user_id] = @user.id
       redirect_to schedules_path, notice: "ログインしました"
     else
       flash.now[:alert] = "ログインに失敗しました"
@@ -17,6 +19,7 @@ class UserSessionsController < ApplicationController
   end
 
   def destroy
+    cookies.delete(:user_id)
     logout
     redirect_to login_path, notice: "ログアウトしました", status: :see_other
   end
