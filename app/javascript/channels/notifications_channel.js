@@ -19,10 +19,10 @@ consumer.subscriptions.create("NotificationsChannel", {
     console.log("📩 通知データを受信:", data);
     
     // サーバーからの通知指示を受け取った
-    //if (data.type === 'web_notification') {
+    if (data.type === 'web_notification') {
       console.log("🔔 Web通知を表示します");
       this.handleWebNotification(data);
-    //}
+    }
   },
 
   handleWebNotification(data) {

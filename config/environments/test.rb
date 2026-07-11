@@ -64,4 +64,6 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
+
+  config.cache_store = :redis_cache_store, { url: "redis://redis:6379/1/cache", expires_in: 90.minutes }
 end
