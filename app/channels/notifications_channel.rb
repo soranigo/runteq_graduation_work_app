@@ -2,7 +2,7 @@ class NotificationsChannel < ApplicationCable::Channel
   def subscribed
     # ユーザーごとの通知チャンネルに接続
     stream_for current_user
-    
+
     # デバッグ用ログ
     # Rails.logger.info "✅ NotificationsChannel subscribed"
     # Rails.logger.info "  User ID: #{current_user.id}"

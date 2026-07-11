@@ -40,7 +40,7 @@ module GraduationWorkApp
     config.i18n.default_locale = :ja
 
     # Action Cable がセッションにアクセスできるようにする
-    config.action_cable.mount_path = '/cable'
+    config.action_cable.mount_path = "/cable"
     config.action_cable.disable_request_forgery_protection = false
   end
 end

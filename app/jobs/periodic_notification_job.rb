@@ -13,23 +13,23 @@ class PeriodicNotificationJob < ApplicationJob
     Rails.logger.info "  user.object_id: #{user.object_id}"
     Rails.logger.info "  user.class: #{user.class}"
     Rails.logger.info "  user.to_gid_param: #{user.to_gid_param}"
-  
+
     # 念のため DB から再取得
     reloaded_user = User.find(user.id)
     Rails.logger.info "  reloaded_user.object_id: #{reloaded_user.object_id}"
     Rails.logger.info "  reloaded_user.to_gid_param: #{reloaded_user.to_gid_param}"
-  
+
     # 両者が同じか確認
     Rails.logger.info "  GlobalID が同じ?: #{user.to_gid_param == reloaded_user.to_gid_param}"
     Rails.logger.info "=" * 80
 
     broadcast_data = {
-      type: 'web_notification',
+      type: "web_notification",
       title: notification_title(schedule),
       body: notification_body(schedule),
       schedule_id: schedule.id
     }
-    
+
     Rails.logger.info "📡 ブロードキャスト送信"
     Rails.logger.info "  送信先 GlobalID: #{user.to_gid_param}"
     Rails.logger.info "  Stream name: notifications:#{user.to_gid_param}"
@@ -39,7 +39,7 @@ class PeriodicNotificationJob < ApplicationJob
       reloaded_user,
       broadcast_data
     )
-    
+
     Rails.logger.info "✅ ブロードキャスト送信完了"
     Rails.logger.info "=" * 80
   end
