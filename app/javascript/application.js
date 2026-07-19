@@ -5,7 +5,6 @@ import "trix"
 import "@rails/actiontext"
 import "channels/consumer"
 import "channels/notifications_channel"
-import { requestNotificationPermission, showNotification } from "./notifications"
 
 /*
 document.addEventListener('DOMContentLoaded', () => {
