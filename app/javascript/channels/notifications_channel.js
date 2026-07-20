@@ -1,5 +1,5 @@
 import consumer from "channels/consumer"
-import { showNotification, requestNotificationPermission } from "../notifications"
+import { showNotification, requestNotificationPermission } from "notifications"
 
 console.log("📂 notifications_channel.js が読み込まれました");
 
