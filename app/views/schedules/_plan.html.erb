@@ -1,8 +1,27 @@
 <% schedule_plan = plans_hash[[w.to_i, time_separate_start.strftime("%H:%M")]] %>
 <% if schedule_plan %>
+  <!--
   <%= link_to schedule_plan.name, "/schedules/#{schedule.id}/plans/#{schedule_plan.id}/edit" %>
+  -->
+  <div>
+    <input type="hidden" id=<%= "plan#{schedule_plan.id}" %> value="<%= schedule_plan.to_json %>">
+    <input type="hidden" id=<%= "updateURL_#{schedule_plan.id}" %> value="<%= urls_update_plan_hash[schedule_plan.id] %>">
+    <a class="showForm plan <%= schedule_plan.id %>"><%= schedule_plan.name %></a>
+  </div>
 <% elsif plan_ids_hash[ [w.to_i, time_separate_start.strftime("%H:%M")] ] %>
+  <!--
   <%= link_to "↓ ↓ ↓", "/schedules/#{schedule.id}/plans/#{plan_ids_hash[ [w.to_i, time_separate_start.strftime("%H:%M")] ].id}/edit" %>
+  -->
+  <div>
+    <input type="hidden" id=<%= "planIdsHash#{plan_ids_hash[ [w.to_i, time_separate_start.strftime("%H:%M")] ].id}" %> value="<%= plan_ids_hash[ [w.to_i, time_separate_start.strftime("%H:%M")] ].to_json %>">
+    <a class="showForm planIdsHash <%= plan_ids_hash[ [w.to_i, time_separate_start.strftime("%H:%M")] ].id %>">↓ ↓ ↓</a>
+  </div>
 <% else %>
+  <!--
   <%= link_to "+", new_schedule_plan_path(schedule, starting_day_of_week: w.to_i, starting_time_before_type_conversion: time_separate_start) %>
+  -->
+  <div>
+    <input type="hidden" id="startTime_<%= t %>_<%= w %>" value="<%= { 'starting_day_of_week': days_of_week.invert[w.to_i], 'starting_hour': sprintf('%02d', (t / 2).floor), 'starting_minute': sprintf('%02d', ((t % 2) * 30).floor) }.to_json %>">
+    <a class="showForm" id="<%= t %>_<%= w %>">+</a>
+  </div>
 <% end %>

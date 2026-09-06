@@ -5,9 +5,4 @@ import "trix"
 import "@rails/actiontext"
 import "channels/consumer"
 import "channels/notifications_channel"
-
-/*
-document.addEventListener('DOMContentLoaded', () => {
-  requestNotificationPermission();
-});
-*/
+import "modals/plans_registration_form"

@@ -24,13 +24,25 @@
             <%= render partial: 'plan', locals: {
                                                   schedule: @schedule,
                                                   w: w + 1,
+                                                  t: t,
+                                                  days_of_week: @days_of_week,
                                                   time_separate_start: time_separate_start,
                                                   plans_hash: @plans_hash,
-                                                  plan_ids_hash: @plan_ids_hash
+                                                  plan_ids_hash: @plan_ids_hash,
+                                                  urls_update_plan_hash: @urls_update_plan_hash
                                                 } %>
           </td>
         <% end %>
       </tr>
     <% end %>
   </tbody>
+  <input type="hidden" id="newPlan" value="<%= @plan.to_json %>">
+  <input type="hidden" id="createURL" value="<%= @url_create_plan %>">
+  <input type="hidden" id="createMethod" value="<%= @method_create_plan %>">
+  <input type="hidden" id="updateMethod" value="<%= @method_update_plan %>">
 </table>
+
+<!-- pop-up dialog box, containing a form -->
+<dialog id="favDialog">
+  <%= render partial: "modal_plan_form", locals: { plan: @plan } %>
+</dialog>
