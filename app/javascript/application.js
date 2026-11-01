@@ -6,3 +6,7 @@ import "@rails/actiontext"
 import "channels/consumer"
 import "channels/notifications_channel"
 import "modals/plans_registration_form"
+
+document.addEventListener("turbo:load", () => {
+  console.log("Turbo loaded");
+});

@@ -20,7 +20,7 @@
       <% time_separate_end = @time + 60 * 30 * (t + 1) %>
         <th scope="row"><%= "#{time_separate_start.strftime("%H:%M")} ~ #{time_separate_end.strftime("%H:%M")}" %></th>
         <% 7.times do |w| %>
-          <td>
+          <td class="test">
             <%= render partial: 'plan', locals: {
                                                   schedule: @schedule,
                                                   w: w + 1,
