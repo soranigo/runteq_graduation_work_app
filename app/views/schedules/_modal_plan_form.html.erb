@@ -1,6 +1,10 @@
 <div>
   <button id="closeForm" type="reset">閉じる</button>
 </div>
+
+<div>
+  <p id="plan-create-or-update-error-messages">テストメッセージ。バリデーションに引っかかるとエラー文に代わるよ</p>
+</div>
 <%= form_with model: plan, url: @url_create_plan, method: @method_create_plan do |f| %>
   <div class="field">
     <%= f.label t('plans.name') %><br />

@@ -20,8 +20,8 @@ class PlansController < ApplicationController
       define_alert_timings(@plan)
       redirect_to schedule_path(@plan.schedule), notice: "#{@plan.name}を作成しました"
     else
-      flash.now[:danger] = "プランを作成出来ませんでした"
-      render :new, status: :unprocessable_entity
+      # flash.now[:danger] = "プランを作成出来ませんでした"
+      # render "schedules/show", locals: { plans_hash: @plans_hash, w: 0, time_separate_start: "" }, status: :unprocessable_entity
     end
   end
 
@@ -41,8 +41,8 @@ class PlansController < ApplicationController
       define_alert_timings(@plan)
       redirect_to schedule_path(@plan.schedule), notice: "#{@plan.name}を更新しました"
     else
-      flash.now[:danger] = "プランを更新出来ませんでした"
-      render :edit, status: :unprocessable_entity
+      # flash.now[:danger] = "プランを更新出来ませんでした"
+      # render "schedules/show", status: :unprocessable_entity
     end
   end
 

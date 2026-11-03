@@ -1,14 +1,3 @@
-/*
-const showFormButtons = document.getElementsByClassName("showForm");
-const closeFormButton = document.getElementById("closeForm");
-const dialog = document.getElementById("favDialog");
-const testButtons = document.getElementsByClassName("test");
-
-const form = document.querySelector("form");
-*/
-
-// dialog.returnValue = "favAnimal";
-
 let form_method_input;
 
 function openCheck(dialog) {
@@ -21,16 +10,9 @@ function openCheck(dialog) {
 
 let i;
 
-/*
-for(i = 0; i < testButtons.length; i++) {
-  testButtons[i].addEventListener("click", () => {
-    console.log("testだよ");
-  });
-};
-*/
-
 // Update button opens a modal dialog
 document.addEventListener("click", function(event) {
+  const error_messages = document.getElementById("plan-create-or-update-error-messages");
   const clickedElement = event.target;
 
   if (!clickedElement.classList.contains("showForm")) return;
@@ -53,6 +35,20 @@ document.addEventListener("click", function(event) {
   let url;
 
   form.method = "post";
+
+  console.log("書き換え前error_messages ↓");
+  console.log(error_messages);
+
+  if(error_messages.tagName.toLowerCase() !== "p") {
+    console.log("エラーメッセージの書き換えを行う");
+    const empty_error_message = document.createElement("p");
+    empty_error_message.id = "plan-create-or-update-error-messages";
+    empty_error_message.textContent = "テストメッセージ。バリデーションに引っかかるとエラー文に代わるよ";
+    error_messages.replaceWith(empty_error_message);
+  };
+
+  console.log("書き換え後error_messages ↓");
+  console.log(error_messages);
 
   console.log("-------------");
   console.log("要素を取得します。");
