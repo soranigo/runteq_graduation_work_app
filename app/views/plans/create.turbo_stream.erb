@@ -1,3 +1,1 @@
-<%= turbo_stream.replace "plan-create-or-update-error-messages" do %>
-  <%= render 'error_messages', plan: @plan %>
-<% end %>
+<%= render 'create_update_turbo_stream', plan: @plan %>

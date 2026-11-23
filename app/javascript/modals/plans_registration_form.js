@@ -39,13 +39,8 @@ document.addEventListener("click", function(event) {
   console.log("書き換え前error_messages ↓");
   console.log(error_messages);
 
-  if(error_messages.tagName.toLowerCase() !== "p") {
-    console.log("エラーメッセージの書き換えを行う");
-    const empty_error_message = document.createElement("p");
-    empty_error_message.id = "plan-create-or-update-error-messages";
-    empty_error_message.textContent = "テストメッセージ。バリデーションに引っかかるとエラー文に代わるよ";
-    error_messages.replaceWith(empty_error_message);
-  };
+  console.log("エラーメッセージの書き換えを行う");
+  error_messages.innerHTML = "";
 
   console.log("書き換え後error_messages ↓");
   console.log(error_messages);
