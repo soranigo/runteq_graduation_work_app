@@ -29,7 +29,7 @@ class SchedulesController < ApplicationController
     @url_create_plan = schedule_plans_path(@schedule)
     @urls_update_plan_hash = {}
 
-    plan_ids = @schedule.plans.where.not(id:nil).ids
+    plan_ids = @schedule.plans.where.not(id: nil).ids
     plan_ids.length.times do |t|
       @urls_update_plan_hash[plan_ids[t]] = schedule_plan_path(@schedule, plan_ids[t])
     end
