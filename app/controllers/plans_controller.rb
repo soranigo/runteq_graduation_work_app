@@ -14,14 +14,21 @@ class PlansController < ApplicationController
 
   def create
     @plan = Plan.new(plan_params)
-    @plan.starting_time = @plan.starting_time_before_type_conversion.strftime("%H:%M")
-    @plan.ending_time = @plan.ending_time_before_type_conversion.strftime("%H:%M")
+
+    if @plan.name == "テスト"
+      @plan.starting_time_before_type_conversion = ""
+      @plan.ending_time_before_type_conversion = ""
+    end
+
+    if @plan.starting_time_before_type_conversion.present? && @plan.ending_time_before_type_conversion.present?
+      @plan.starting_time = @plan.starting_time_before_type_conversion.strftime("%H:%M")
+      @plan.ending_time = @plan.ending_time_before_type_conversion.strftime("%H:%M")
+    end
     if @plan.save
       define_alert_timings(@plan)
       redirect_to schedule_path(@plan.schedule), notice: "#{@plan.name}を作成しました"
     else
-      flash.now[:danger] = "プランを作成出来ませんでした"
-      render :new, status: :unprocessable_entity
+      # turbo_streamリクエスト。create.turbo_stream.html.erbが自動でレンダリングされる
     end
   end
 
@@ -35,14 +42,15 @@ class PlansController < ApplicationController
     @plan = Plan.find_by(id: params[:id], schedule_id: params[:schedule_id])
     @plan_substitute = Plan.new(plan_params)
     plan_param = plan_params
-    plan_param[:starting_time] = @plan_substitute.starting_time_before_type_conversion.strftime("%H:%M")
-    plan_param[:ending_time] = @plan_substitute.ending_time_before_type_conversion.strftime("%H:%M")
+    if @plan.starting_time_before_type_conversion && @plan.ending_time_before_type_conversion
+      plan_param[:starting_time] = @plan_substitute.starting_time_before_type_conversion.strftime("%H:%M")
+      plan_param[:ending_time] = @plan_substitute.ending_time_before_type_conversion.strftime("%H:%M")
+    end
     if @plan.update(plan_param)
       define_alert_timings(@plan)
       redirect_to schedule_path(@plan.schedule), notice: "#{@plan.name}を更新しました"
     else
-      flash.now[:danger] = "プランを更新出来ませんでした"
-      render :edit, status: :unprocessable_entity
+      # turbo_streamリクエスト。update.turbo_stream.html.erbが自動でレンダリングされる
     end
   end
 

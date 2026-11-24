@@ -24,6 +24,18 @@ class SchedulesController < ApplicationController
 
   def show
     @schedule = Schedule.find(params[:id])
+    @plan = @schedule.plans.build
+    @days_of_week = DAYS_OF_WEEK
+    @url_create_plan = schedule_plans_path(@schedule)
+    @urls_update_plan_hash = {}
+
+    plan_ids = @schedule.plans.where.not(id: nil).ids
+    plan_ids.length.times do |t|
+      @urls_update_plan_hash[plan_ids[t]] = schedule_plan_path(@schedule, plan_ids[t])
+    end
+
+    @method_create_plan = :post
+    @method_update_plan = :put
     @plans = @schedule.plans.all
     @plans_hash = @plans.index_by { |plan| [
                                               plan.starting_day_of_week_before_type_cast,
